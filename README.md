@@ -8,26 +8,29 @@ This is the reference code for [CryptoNote](https://cryptonote.org) cryptocurren
 
 ### Preparation
 
-1. Create an account on [GitHub.com](github.com)
-2. Fork [CryptoNote repository](https://github.com/cryptonotefoundation/cryptonote)
-3. Buy one or two Ubuntu-based dedicated servers (at least 2Gb of RAM) for seed nodes.
+1. Choose the source code
+2-Setup two ubuntu server we use v16 and should each server has it's own IP and PORT number
+3-Install software required :
+   sudo apt install make
+   sudo apt-get update -y
+   sudo apt-get upgrade -y
+   sudo apt-get dist-upgrade -y
+   
+ sudo apt install build-essential libqt4-dev qt5-qmake cmake qttools5-dev libqt5webkit5-dev qttools5-dev-tools qt5-default python-  sphinx texlive-latex-base inotify-tools openssl libssl-dev libdb++-dev libminiupnpc-dev git sqlite3 libsqlite3-dev g++ libpng-dev gedit python gcc make libbz2-dev libdb-dev libssl-dev libreadline-dev autoconf libtool libleveldb-dev libblkid-dev e2fslibs-dev libboost-all-dev libaudit-dev nano qtbase5-dev qt4-dev-tools libqtcore4 libqtgui4 automake -y
+ 
+ you may to install :
+ sudo add-apt-repository universe
+sudo apt-get update
+sudo apt-get install libboost-all-dev
+sudo apt-get update && sudo apt-get install build-essential﻿
+   
 
 
-
-### First step. Give a name to your coin
-
-**Good name must be unique.** Check uniqueness with [google](http://google.com) and [Map of Coins](mapofcoins.com) or any other similar service.
-
-Name must be specified twice:
-
-**1. in file src/CryptoNoteConfig.h** - `CRYPTONOTE_NAME` constant
-
-Example: 
-```
-const char CRYPTONOTE_NAME[] = "furiouscoin";
-```
-
-**2. in src/CMakeList.txt file** - set_property(TARGET daemon PROPERTY OUTPUT_NAME "YOURCOINNAME**d**")
+4-open file file src/CryptoNoteConfig.h
+ You need to change any spec you need such as name of coin
+ EXAMPLE:
+ //TODO Put here the name of your currency
+const char     CRYPTONOTE_NAME[]  = "crycoin";
 
 Example: 
 ```
@@ -131,7 +134,6 @@ const std::initializer_list<const char*> SEED_NODES = {
 };
 ```
 
-
 ### Fourth step. Transaction fee and related parameters
 
 **1. Minimum transaction fee** (src/CryptoNoteConfig.h)
@@ -194,48 +196,13 @@ Example:
 ```
 const char GENESIS_COINBASE_TX_HEX[] = "013c01ff0001ffff...785a33d9ebdba68b0";
 ```
-
+5- in src/CMakeList.txt file** - set_property(TARGET daemon PROPERTY OUTPUT_NAME "YOURCOINNAME**d**")
 
 **4. Recompile the binaries**
 
 Recompile everything again. Your coin code is ready now. Make an announcement for the potential users and enjoy!
 
 
-## Building CryptoNote 
 
-### On *nix
 
-Dependencies: GCC 4.7.3 or later, CMake 2.8.6 or later, and Boost 1.55.
 
-You may download them from:
-
-* http://gcc.gnu.org/
-* http://www.cmake.org/
-* http://www.boost.org/
-* Alternatively, it may be possible to install them using a package manager.
-
-To build, change to a directory where this file is located, and run `make`. The resulting executables can be found in `build/release/src`.
-
-**Advanced options:**
-
-* Parallel build: run `make -j<number of threads>` instead of `make`.
-* Debug build: run `make build-debug`.
-* Test suite: run `make test-release` to run tests in addition to building. Running `make test-debug` will do the same to the debug version.
-* Building with Clang: it may be possible to use Clang instead of GCC, but this may not work everywhere. To build, run `export CC=clang CXX=clang++` before running `make`.
-
-### On Windows
-Dependencies: MSVC 2013 or later, CMake 2.8.6 or later, and Boost 1.55. You may download them from:
-
-* http://www.microsoft.com/
-* http://www.cmake.org/
-* http://www.boost.org/
-
-To build, change to a directory where this file is located, and run theas commands: 
-```
-mkdir build
-cd build
-cmake -G "Visual Studio 12 Win64" ..
-```
-
-And then do Build.
-Good luck!
